@@ -1,0 +1,97 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+    />
+    <script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-firestore.js"></script>
+  </head>
+  <body>
+    <div class="container mt-5">
+      <h1 class="mb-4">Category Selector</h1>
+      <button id="create-category" class="btn btn-primary mb-3">
+        Create Category
+      </button>
+      <div class="dropdowns">
+        <select id="select-category" class="form-control mb-3">
+          <option value="">Category1을 선택하세요.</option>
+        </select>
+        <select id="select-subcategory" class="form-control mb-3">
+          <option value="">Category2를 선택하세요.</option>
+        </select>
+        <select id="select-subsubcategory" class="form-control mb-3">
+          <option value="">Category3를 선택하세요.</option>
+        </select>
+        <select id="select-subsubcategory2" class="form-control mb-3">
+          <option value="">Category4를 선택하세요.</option>
+        </select>
+      </div>
+      <div id="content-area">
+        <!-- Contents will be appended here -->
+      </div>
+    </div>
+
+    <script>
+      // Your web app's Firebase configuration
+      const firebaseConfig = {
+        apiKey: 'AIzaSyC6M6WHSGYT5iRqIiICV1evN9ipGCnxmsM',
+        authDomain: 'testfire-9603b.firebaseapp.com',
+        projectId: 'testfire-9603b',
+        storageBucket: 'testfire-9603b.appspot.com',
+        messagingSenderId: '916606945984',
+        appId: '1:916606945984:web:669ba6dfdbec28397fbb25',
+        measurementId: 'G-EXRSGY0QMW',
+      }
+
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig)
+      const db = firebase.firestore()
+
+      document
+        .getElementById('create-category')
+        .addEventListener('click', async function () {
+          // Creating Category1
+          await db
+            .collection('Category1')
+            .doc('개념강의')
+            .set({ name: '개념강의' })
+
+          // Creating Category2 under Category1
+          await db
+            .collection('Category1')
+            .doc('개념강의')
+            .collection('Category2')
+            .doc('수학')
+            .set({ name: '수학' })
+
+          // Creating Category3 under Category2
+          await db
+            .collection('Category1')
+            .doc('개념강의')
+            .collection('Category2')
+            .doc('수학')
+            .collection('Category3')
+            .doc('A')
+            .set({ name: 'A' })
+
+          // Creating Category4 under Category3
+          await db
+            .collection('Category1')
+            .doc('개념강의')
+            .collection('Category2')
+            .doc('수학')
+            .collection('Category3')
+            .doc('A')
+            .collection('Category4')
+            .doc('B')
+            .set({ name: 'B' })
+        })
+
+      // Add more event listeners here to fetch and display data
+      // according to the selected option
+    </script>
+    <script src="main.js"></script>
+  </body>
+</html>
